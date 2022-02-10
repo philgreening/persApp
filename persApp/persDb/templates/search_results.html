@@ -3,37 +3,79 @@
 
 {% block content %}
 <h1>Search Results</h1>
-    <table class="table" style="max-width: 60%; margin-left: auto; margin-right: auto;">
-        <thead>
+<table class="table" style="max-width: 60%; margin-left: auto; margin-right: auto;">
+    <thead>
+        <tr>
+        <th scope="col">ISSN</th>
+        <th scope="col">MMS ID</th>
+        <th scope="col">Library Name</th>
+        <th scope="col">location Name</th>
+        <th scope="col">Title</th>
+        <th scope="col">Classmark</th>
+        <th scope="col">Holdings And Wants</th>
+        <th scope="col">Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for per in object_list %}
             <tr>
-            <th scope="col">ISSN</th>
-            <th scope="col">MMS ID</th>
-            <th scope="col">Library Name</th>
-            <th scope="col">location Name</th>
-            <th scope="col">Title</th>
-            <th scope="col">Classmark</th>
-            <th scope="col">Holdings And Wants</th>
-            <th scope="col">Edit</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for per in object_list %}
-                <tr>
-                <td>{{ per.issn }}</td>
-                <td>{{ per.mms_id}}</td>
-                <td>{{ per.library_name}}</td>
-                <td>{{ per.location_name}}</td>
-                <td>{{ per.title }}</td>
-                <td>{{ per.classmark }}</td>
-                <td>{{ per.holdings_and_wants }}</td>
-                <td><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editModal-<%= user.username %>">
-                <i class="fas fa-edit"></i>
-                </button>
-                </td>          
-            </tr>
-            {% endfor %}
-        </tbody>
-        </table>    
+            <td>{{ per.issn }}</td>
+            <td>{{ per.mms_id}}</td>
+            <td>{{ per.library_name}}</td>
+            <td>{{ per.location_name}}</td>
+            <td>{{ per.title }}</td>
+            <td>{{ per.classmark }}</td>
+            <td>{{ per.holdings_and_wants }}</td>
+            <td><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editModal-{{ per.id }}">
+            <i class="fas fa-edit"></i>
+            </button>
+            </td>          
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+
+    {% for per in object_list %}
+
+        <!-- Edit Modal -->
+    <div class="modal fade" id="editModal-{{ per.id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Modal</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/update/perRecord" method="POST">
+    
+            <label for="username" class="form-label">ISSN</label>
+            <input class="form-control" type="text" id="issn" name="issn" value="{{ per.issn }}" placeholder="{{ per.issn }}" aria-label="default input example">
+    
+            <label for="email" class="form-label">Email</label>
+            <input class="form-control" type="text" id="email" name="email" value=<%= user.email %> placeholder=<%= user.email %> aria-label="default input example">
+    
+            <label for="password" class="form-label">Password</label>
+            <input class="form-control" type="password" id="update_password" name="update_password" value=<%= user.passwordHash %> placeholder=<%= user.passwordHash%> aria-label="default input example">
+    
+            <!-- <label for="lastlogin" class="form-label">Last Login</label>
+            <input class="form-control" type="datetime-local" id="lastlogin" name="lastlogin" placeholder=<%= user.lastlogin %> placeholder=<%= user.lastlogin %> aria-label="default input example">
+     -->
+            <label for="privilege" class="form-label">privilege</label>
+            <input class="form-control" type="number" id="privilege" name="privilege" value=<%= user.privilege %> placeholder=<%= user.privilege %> aria-label="default input example">
+  
+            <input type="hidden" value=<%= user.id %> name="user_id"></input>
+    
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+        </div>
+      </div>
+    </div>
+    </div>
+    {% endfor %}
+
+    
 
 
-        {% endblock content %}
+    {% endblock content %}
