@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Periodicals</title>
+        {% load static %} 
+        {% load bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+        <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+        <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+    </head>
+
+    <body>
+    {% block content %}{% endblock content %}
+    </body>
+</html>

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1>Search Results</h1>
+    <table class="table" style="max-width: 60%; margin-left: auto; margin-right: auto;">
+        <thead>
+            <tr>
+            <th scope="col">ISSN</th>
+            <th scope="col">MMS ID</th>
+            <th scope="col">Library Name</th>
+            <th scope="col">location Name</th>
+            <th scope="col">Title</th>
+            <th scope="col">Classmark</th>
+            <th scope="col">Holdings And Wants</th>
+            <th scope="col">Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for per in object_list %}
+                <tr>
+                <td>{{ per.issn }}</td>
+                <td>{{ per.mms_id}}</td>
+                <td>{{ per.library_name}}</td>
+                <td>{{ per.location_name}}</td>
+                <td>{{ per.title }}</td>
+                <td>{{ per.classmark }}</td>
+                <td>{{ per.holdings_and_wants }}</td>
+                <td><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editModal-<%= user.username %>">
+                <i class="fas fa-edit"></i>
+                </button>
+                </td>          
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>    
+
+
+        {% endblock content %}
