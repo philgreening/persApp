@@ -42,28 +42,57 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Edit Modal</h5>
+          <h5 class="modal-title" id="exampleModalLabel">{{ per.title }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="/update/perRecord" method="POST">
+          <form action="/updated/{{ per.id }}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+
     
-            <label for="username" class="form-label">ISSN</label>
-            <input class="form-control" type="text" id="issn" name="issn" value="{{ per.issn }}" placeholder="{{ per.issn }}" aria-label="default input example">
+            <!-- <label for="issn" class="form-label">ISSN</label>
+            <input class="form-control" type="text" id="issn" name="issn" value="{{ per.issn }}" placeholder="{{ per.issn }}" aria-label="default input example" readonly>
     
-            <label for="email" class="form-label">Email</label>
-            <input class="form-control" type="text" id="email" name="email" value=<%= user.email %> placeholder=<%= user.email %> aria-label="default input example">
+            <label for="mms_id" class="form-label">MMS ID</label>
+            <input class="form-control" type="number" id="email" name="mms_id" value="{{ per.mms_id }}" placeholder="{{ per.mms_id }}" aria-label="default input example" readonly>
     
-            <label for="password" class="form-label">Password</label>
-            <input class="form-control" type="password" id="update_password" name="update_password" value=<%= user.passwordHash %> placeholder=<%= user.passwordHash%> aria-label="default input example">
+            <label for="library_name" class="form-label">Library </label>
+            <input class="form-control" type="text" id="library_name" name="library_name" value="{{ per.library_name }}" placeholder="{{ per.library_name }}" aria-label="default input example" readonly>
     
-            <!-- <label for="lastlogin" class="form-label">Last Login</label>
-            <input class="form-control" type="datetime-local" id="lastlogin" name="lastlogin" placeholder=<%= user.lastlogin %> placeholder=<%= user.lastlogin %> aria-label="default input example">
-     -->
-            <label for="privilege" class="form-label">privilege</label>
-            <input class="form-control" type="number" id="privilege" name="privilege" value=<%= user.privilege %> placeholder=<%= user.privilege %> aria-label="default input example">
-  
-            <input type="hidden" value=<%= user.id %> name="user_id"></input>
+            <label for="new_library" class="form-label text-danger">New Library</label>
+            <input class="form-control text-danger" type="text" id="new_library" name="new_library" value="{{ per.new_library }}" placeholder="{{ per.new_library }}" aria-label="default input example">
+
+            <label for="location_name" class="form-label">Location</label>
+            <input class="form-control" type="text" id="location_name" name="location_name" value="{{ per.location_name }}" placeholder="{{ per.location_name }}" aria-label="default input example" readonly>
+    
+            <label for="new_location" class="form-label text-danger">New Library</label>
+            <input class="form-control text-danger" type="text" id="new_location" name="new_location" value="{{ per.new_location }}" placeholder="{{ per.new_location }}" aria-label="default input example">
+
+            <label for="classmark" class="form-label">Classmark</label>
+            <input class="form-control" type="text" id="classmark" name="classmark" value="{{ per.classmark }}" placeholder="{{ per.classmark }}" aria-label="default input example" readonly>
+    
+            <label for="new_per_number" class="form-label text-danger">New Per Number</label>
+            <input class="form-control text-danger" type="text" id="new_per_number" name="new_per_number" value="{{ per.new_per_number }}" placeholder="{{ per.new_per_number }}" aria-label="default input example">
+
+            <label for="holdings_and_wants" class="form-label">Holdings and Wants</label>
+            <input class="form-control " type="text" id="holdings_and_wants" name="holdings_and_wants" value="{{ per.holdings_and_wants }}" placeholder="{{ per.holdings_and_wants }}" aria-label="default input example" readonly></textarea>
+    
+            <label for="new_holdings" class="form-label text-danger">New Holdings</label>
+            <textarea class="form-control text-danger" type="textarea" id="new_holdings" name="new_holdings" value="{{ per.new_holdings }}" placeholder="{{ per.new_holdings }}" aria-label="default input example"></textarea>
+
+            <label for="new_wants_and_notes" class="form-label text-danger">New Wants and Notes</label>
+            <textarea class="form-control text-danger" type="textarea" id="new_wants_and_notes" name="new_wants_and_notes" value="{{ per.new_wants_and_notes }}" placeholder="{{ per.new_wants_and_notes }}" aria-label="default input example"></textarea>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="labeled_on_shelf" value="{{ per.labeled_on_shelf }}">
+              <label class="form-check-label" for="labeled_on_shelf">Labeled On Shelf</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="amended_on_alma" value="{{ per.amended_on_alma }}">
+              <label class="form-check-label" for="amended_on_alma">Changed on Alma</label>
+            </div>
+
+            <input class="hidden" type="hidden" value="{{ per.id }}" name="id"></input> -->
     
         </div>
         <div class="modal-footer">
