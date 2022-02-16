@@ -1,25 +1,20 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, UpdateView
+from django.shortcuts import redirect, render, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.views.generic import TemplateView, ListView
 from django.db.models import Q
-from .forms import *
 
 from .models import *
 
 class HomePageView(TemplateView):
     template_name = 'home.html'
 
+class UpdatedView(TemplateView):
+    template_name = 'updated.html'
+
 class SearchResultsView(ListView):
     model = PeriodicalsOctavo
     template_name = 'search_results.html'
-
-    fields = [
-        'mms_id', 'issn', 'library_name',
-         'new_library', 'location_name',
-         'new_location', 'classmark', 'new_per_number',
-         'title', 'holdings_and_wants', 'new_holdings',
-         'new_wants_and_notes', 'labeled_on_shelf', 'amended_on_alma'
-    ]
-
+   
     def get_queryset(self):
         query = self.request.GET.get('q')
         object_list = PeriodicalsOctavo.objects.filter(
@@ -27,19 +22,28 @@ class SearchResultsView(ListView):
         )
         return object_list
     
-    # def put(self, request, *args, **kwargs):
-    #     return self.update(request, *args, **kwargs)
+    # # update view for details
+def update_view(request, id):
 
+    obj = get_object_or_404(PeriodicalsOctavo, id = id)
 
+    if request.method == 'POST':
+        new_library = request.POST['new_library']
+        new_location = request.POST['new_location']
+        new_per_number = request.POST['new_per_number']
+        new_holdings = request.POST['new_holdings']
+        new_wants_and_notes = request.POST['new_wants_and_notes']
+        # labeled_on_shelf = request.POST['labeled_on_shelf']
+        # amended_on_alma = request.POST['amended_on_alma']
 
-class UpdatePerView(UpdateView):
-    model = PeriodicalsOctavo
-    template_name = 'home.html'
+        obj.new_library = new_library
+        obj.new_location = new_location
+        obj.new_per_number = new_per_number
+        obj.new_holdings = new_holdings
+        obj.new_wants_and_notes = new_wants_and_notes
+        # obj.labeled_on_shelf = labeled_on_shelf
+        # obj.amended_on_alma = amended_on_alma
 
-    fields = [
-        'mms_id', 'issn', 'library_name',
-         'new_library', 'location_name',
-         'new_location', 'classmark', 'new_per_number',
-         'title', 'holdings_and_wants', 'new_holdings',
-         'new_wants_and_notes', 'labeled_on_shelf', 'amended_on_alma'
-    ]
+        obj.save()
+
+        return render(request,'updated.html',{})

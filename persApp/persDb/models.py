@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+
 
 class PeriodicalsOctavo(models.Model):
     mms_id = models.TextField(null=False, blank=False)
@@ -18,4 +20,7 @@ class PeriodicalsOctavo(models.Model):
 
     def __str__(self):
         return self.mms_id
+    
+    # def get_absolute_url(self):
+    #     return reverse('update_per', kwargs={'pk': self.pk})
 

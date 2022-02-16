@@ -46,12 +46,10 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="/updated/{{ per.id }}" method="POST">
+          <form action="../updated/{{ per.id }}" method="POST">
             {% csrf_token %}
-            {{ form.as_p }}
-
     
-            <!-- <label for="issn" class="form-label">ISSN</label>
+            <label for="issn" class="form-label">ISSN</label>
             <input class="form-control" type="text" id="issn" name="issn" value="{{ per.issn }}" placeholder="{{ per.issn }}" aria-label="default input example" readonly>
     
             <label for="mms_id" class="form-label">MMS ID</label>
@@ -92,7 +90,7 @@
               <label class="form-check-label" for="amended_on_alma">Changed on Alma</label>
             </div>
 
-            <input class="hidden" type="hidden" value="{{ per.id }}" name="id"></input> -->
+            <input class="hidden" type="hidden" value="{{ per.id }}" name="id"></input>
     
         </div>
         <div class="modal-footer">
