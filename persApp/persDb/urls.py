@@ -6,7 +6,7 @@ urlpatterns = [
     path('search/', SearchResultsView.as_view(), name='search_results'),
     path('', HomePageView.as_view(), name='home'),
     path('updated/<int:id>', update_view, name='update'),
-    path('updated/', UpdatedView.as_view(), name='updated'),
+    #path('updated/<int:id>', UpdatedView.as_view(), name='updated'),
     # path('updated/', SearchResultsView.as_view(), name='update_per'),
     # path('updated/<int:pk>/', SearchResultsView.as_view(), name='update_per'),
 

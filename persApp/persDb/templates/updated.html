@@ -2,4 +2,47 @@
 
 {% block content %}
 <h1>Updated!</h1>
+<ul class="list-group">  
+    <li class="list-group-item list-group-item-success">
+        <h4>Title: {{ per_details.title }}</h4>
+    </li>
+    <li class="list-group-item list-group-item-success">
+        <h4>MMS Id: {{ per_details.mms_id }}</h4>
+    </li>
+    <li class="list-group-item list-group-item-success">
+        <h4>ISSN: {{ per_details.issn }}</h4>
+    </li>
+    <li class="list-group-item list-group-item-success">
+        <h4>Library: {{ per_details.library_name }}</h4>
+    </li>
+    <li class="list-group-item list-group-item-success">
+        <h4>Location: {{ per_details.location_name }}</h4>
+    </li>
+    <li class="list-group-item list-group-item-success">
+        <h4>Classmark: {{ per_details.classmark }}</h4>
+    </li>
+    <li class="list-group-item list-group-item-success">
+        <h4>New Per Number: {{ per_details.new_per_number }}</h4>
+    </li>
+    <li class="list-group-item list-group-item-success">
+        <h4>Holdings and Wants: {{ per_details.holdings_and_wants }}</h4>
+    </li>
+    <li class="list-group-item list-group-item-success">
+        <h4>New Holdings: {{ per_details.new_holdings }}</h4>
+    </li>
+    <li class="list-group-item list-group-item-success">
+        <h4>New Wants and Notes: {{ new_wants_and_notes.new_holdings }}</h4>
+    </li>
+    <li class="list-group-item list-group-item-success">
+        <h4>Labeled On Shelf: {{ labeled_on_shelf.new_holdings }}</h4>
+    </li>
+    <li class="list-group-item list-group-item-success">
+        <h4>Amended On Alma: {{ amended_on_alma.new_holdings }}</h4>
+    </li>
+  </ul>
+
+
+  
+
+
 {% endblock content %}

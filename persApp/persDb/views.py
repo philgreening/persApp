@@ -1,6 +1,7 @@
+from pyexpat import model
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponseRedirect
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 from django.db.models import Q
 
 from .models import *
@@ -8,8 +9,42 @@ from .models import *
 class HomePageView(TemplateView):
     template_name = 'home.html'
 
-class UpdatedView(TemplateView):
+class UpdatedView(DetailView, UpdateView):
+    model = PeriodicalsOctavo
+    context_object_name = 'per'
     template_name = 'updated.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['per'] = PeriodicalsOctavo.objects.all()
+        return context
+    
+    # def update_view(request, id):
+
+    #     obj = get_object_or_404(PeriodicalsOctavo, id = id)
+
+    #     if request.method == 'POST':
+    #         new_library = request.POST['new_library']
+    #         new_location = request.POST['new_location']
+    #         new_per_number = request.POST['new_per_number']
+    #         new_holdings = request.POST['new_holdings']
+    #         new_wants_and_notes = request.POST['new_wants_and_notes']
+    #         # labeled_on_shelf = request.POST['labeled_on_shelf']
+    #         # amended_on_alma = request.POST['amended_on_alma']
+
+    #         obj.new_library = new_library
+    #         obj.new_location = new_location
+    #         obj.new_per_number = new_per_number
+    #         obj.new_holdings = new_holdings
+    #         obj.new_wants_and_notes = new_wants_and_notes
+    #         # obj.labeled_on_shelf = labeled_on_shelf
+    #         # obj.amended_on_alma = amended_on_alma
+
+    #         obj.save()
+
+    #         return render(request,'updated.html',{})
+
+    
 
 class SearchResultsView(ListView):
     model = PeriodicalsOctavo
@@ -46,4 +81,6 @@ def update_view(request, id):
 
         obj.save()
 
-        return render(request,'updated.html',{})
+        return render(request,'updated.html',{'per_details': PeriodicalsOctavo.objects.get(id=id)})
+    else:
+        return render(request,'updated.html',{'per_details': PeriodicalsOctavo.objects.get(id=id)})
