@@ -1,9 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>HomePage</h1>
-
-<form action="{% url 'search_results' %}" method="get">
-    <input name="q" type="text" placeholder="Search...">
-</form>
+<div class="container p-4">
+    <h1 class="text-center">Home</h1>
+    <div class="form-group p-4">
+        <form action="{% url 'search_results' %}" method="get" id="search-form">
+            <div class="input-group">
+                <input type="text" class="form-control" name="q" placeholder="Search by title, MMS id or ISSN">
+                <div class="input-group-append">
+                    <button class="btn btn-secondary" type="submit" form="search-form">
+                    <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock content %}
+
+
+<div class="form-group has-search">
+    <span class="fa fa-search form-control-feedback"></span>
+    <input type="text" class="form-control" placeholder="Search">
+  </div>

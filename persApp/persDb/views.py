@@ -57,7 +57,7 @@ class SearchResultsView(ListView):
         )
         return object_list
     
-    # # update view for details
+# update view for details
 def update_view(request, id):
 
     obj = get_object_or_404(PeriodicalsOctavo, id = id)
@@ -84,3 +84,16 @@ def update_view(request, id):
         return render(request,'updated.html',{'per_details': PeriodicalsOctavo.objects.get(id=id)})
     else:
         return render(request,'updated.html',{'per_details': PeriodicalsOctavo.objects.get(id=id)})
+
+class ToUpdateResultsView(ListView):
+    model = PeriodicalsOctavo
+    template_name = 'alma_updates.html'
+   
+    def get_queryset(self):
+        # query = self.request.GET.get('q')
+        object_list = PeriodicalsOctavo.objects.filter(
+            labeled_on_shelf='True',
+            amended_on_alma='False'
+        )
+        print(object_list)
+        return object_list
