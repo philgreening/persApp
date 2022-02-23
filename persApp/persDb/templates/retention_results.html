@@ -87,7 +87,7 @@
 
               <label for="new_wants_and_notes" class="form-label text-danger">New Wants and Notes</label>
               <textarea class="form-control text-danger" type="textarea" id="new_wants_and_notes" name="new_wants_and_notes" value="{{ per.new_wants_and_notes }}" placeholder="{{ per.new_wants_and_notes }}" aria-label="default input example"></textarea>
-              <div class="form-check form-check-inline" id="checkbox_shelf">
+              <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="labeled_on_shelf" value="{{ per.labeled_on_shelf }}">
                 <label class="form-check-label" for="labeled_on_shelf">Labeled On Shelf</label>
               </div>
@@ -108,32 +108,5 @@
       </div>
   </div>
     {% endfor %}
-    <script>
-      let checkvalue = document.querySelector('#labeled_on_shelf').value;
-      const checkbox = document.querySelector('#labeled_on_shelf');
-      console.log(checkvalue)
-
-      if (checkvalue === 'True'){
-        //document.querySelector('#labeled_on_shelf').setAttribute('checked', 'checked');
-        checkbox.checked = true;
-        console.log(checkvalue)
-      }else {
-        // document.querySelector('#labeled_on_shelf').setAttribute('checked', );
-        checkbox.checked = false;
-        console.log(checkvalue + " false")
-      }
-      // console.log(checkvalue)
-
-      document.querySelector("#labeled_on_shelf").addEventListener('change', function() {
-        console.log(this);
-        if (document.querySelector(this).is(':checked')) {
-          document.querySelector(this).attr('value', 'True');
-        } else {
-          document.querySelector(this).attr('value', 'False');
-        }
-        checkvalue
-        // console.log(checkvalue)
-      });
-    </script>
-
+    
     {% endblock content %}

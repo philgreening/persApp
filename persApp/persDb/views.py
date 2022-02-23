@@ -68,7 +68,9 @@ def update_view(request, id):
         new_per_number = request.POST['new_per_number']
         new_holdings = request.POST['new_holdings']
         new_wants_and_notes = request.POST['new_wants_and_notes']
-        # labeled_on_shelf = request.POST['labeled_on_shelf']
+        labeled_on_shelf = request.POST['labeled_on_shelf']
+        print(labeled_on_shelf)
+
         # amended_on_alma = request.POST['amended_on_alma']
 
         obj.new_library = new_library
@@ -76,8 +78,9 @@ def update_view(request, id):
         obj.new_per_number = new_per_number
         obj.new_holdings = new_holdings
         obj.new_wants_and_notes = new_wants_and_notes
-        # obj.labeled_on_shelf = labeled_on_shelf
+        obj.labeled_on_shelf = labeled_on_shelf
         # obj.amended_on_alma = amended_on_alma
+        print(obj.labeled_on_shelf)
 
         obj.save()
 
@@ -96,4 +99,15 @@ class ToUpdateResultsView(ListView):
             amended_on_alma='False'
         )
         print(object_list)
+        return object_list
+
+class RetentionResultsView(ListView):
+    model = PeriodicalsOctavo
+    template_name = 'retention_results.html'
+   
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = PeriodicalsOctavo.objects.filter(
+            Q(title__icontains=query) | Q(issn__icontains=query)
+        )
         return object_list
