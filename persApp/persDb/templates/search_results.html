@@ -111,29 +111,46 @@
     <script>
       let checkvalue = document.querySelector('#labeled_on_shelf').value;
       const checkbox = document.querySelector('#labeled_on_shelf');
-      console.log(checkvalue)
+      console.log(checkvalue + " :checkvalue")
+
+      let checkvalue2 = document.querySelector('#amended_on_alma').value;
+      const checkbox2 = document.querySelector('#amended_on_alma');
+      console.log(checkvalue2 + " :checkvalue2")
+
 
       if (checkvalue === 'True'){
-        //document.querySelector('#labeled_on_shelf').setAttribute('checked', 'checked');
         checkbox.checked = true;
-        console.log(checkvalue)
+        console.log(checkvalue = " :checkvalue")
       }else {
-        // document.querySelector('#labeled_on_shelf').setAttribute('checked', );
         checkbox.checked = false;
-        console.log(checkvalue + " false")
+        console.log(checkvalue + " :checkvalue")
       }
-      // console.log(checkvalue)
 
-      document.querySelector("#labeled_on_shelf").addEventListener('change', function() {
-        console.log(this);
-        if (document.querySelector(this).is(':checked')) {
-          document.querySelector(this).attr('value', 'True');
-        } else {
-          document.querySelector(this).attr('value', 'False');
-        }
-        checkvalue
-        // console.log(checkvalue)
-      });
+      if (checkvalue2 === 'True'){
+        checkbox2.checked = true;
+        console.log(checkvalue2 + " :checkvalue2")
+      }else {
+        checkbox2.checked = false;
+        console.log(checkvalue2 + " :checkvalue2")
+      }
+
+      let checkBoxInput = document.querySelectorAll('input[type=checkbox]');
+
+      console.log(checkBoxInput);
+      checkBoxInput.forEach(function(checkbox){
+        checkbox.addEventListener('change', function() {
+          if(this.checked){
+            console.log("checkbox checked")
+            checkbox.setAttribute('value', "True")
+            console.log(checkbox)
+          }else{
+            console.log("checkbox is not checked")
+            checkbox.setAttribute('value', "False")
+            console.log(checkbox)
+          }
+        })
+      })
+
     </script>
 
     {% endblock content %}

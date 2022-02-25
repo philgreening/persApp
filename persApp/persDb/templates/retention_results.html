@@ -1,36 +1,33 @@
 {% extends "base.html" %}
 
-
 {% block content %}
 <div class="container p-4">
   {% if object_list %}
-  <h1 class="text-center">Search Results</h1>
+  <h1 class="text-center"> UKRR Retention: Search Results</h1>
   <table class="table p-4" >
       <thead>
           <tr>
           <th scope="col">ISSN</th>
-          <th scope="col">MMS ID</th>
-          <th scope="col">Library Name</th>
-          <th scope="col">location Name</th>
           <th scope="col">Title</th>
-          <th scope="col">Classmark</th>
-          <th scope="col">Holdings And Wants</th>
-          <th scope="col">Edit</th>
+          <th scope="col">Offering</th>
+          <th scope="col">Holdings Requested</th>
+          <th scope="col">Retention Status</th>
+          <th scope="col">Transfer to BL</th>
+          <th scope="col">Retain</th>
+          <th scope="col">Dispose</th>
           </tr>
       </thead>
       <tbody>
           {% for per in object_list %}
               <tr>
               <td>{{ per.issn }}</td>
-              <td>{{ per.mms_id}}</td>
-              <td>{{ per.library_name}}</td>
-              <td>{{ per.location_name}}</td>
-              <td>{{ per.title }}</td>
-              <td>{{ per.classmark }}</td>
-              <td>{{ per.holdings_and_wants }}</td>
-              <td><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editModal-{{ per.id }}">
-              <i class="fas fa-edit"></i>
-              </button>
+              <td>{{ per.title}}</td>
+              <td>{{ per.offering}}</td>
+              <td>{{ per.holdings_requested}}</td>
+              <td>{{ per.retention_status }}</td>
+              <td>{{ per.transfer_to_bl }}</td>
+              <td>{{ per.retain }}</td>
+              <td>{{ per.dispose }}</td>
               </td>          
           </tr>
           {% endfor %}
@@ -39,74 +36,5 @@
       {% else %}
       <h1 class="text-center p-4">No matches found</h1>
       {% endif %}
-      
-
-      {% for per in object_list %}
-
-          <!-- Edit Modal -->
-      <div class="modal fade" id="editModal-{{ per.id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">{{ per.title }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form action="../updated/{{ per.id }}" method="POST">
-              {% csrf_token %}
-      
-              <label for="issn" class="form-label">ISSN</label>
-              <input class="form-control" type="text" id="issn" name="issn" value="{{ per.issn }}" placeholder="{{ per.issn }}" aria-label="default input example" readonly>
-      
-              <label for="mms_id" class="form-label">MMS ID</label>
-              <input class="form-control" type="number" id="email" name="mms_id" value="{{ per.mms_id }}" placeholder="{{ per.mms_id }}" aria-label="default input example" readonly>
-      
-              <label for="library_name" class="form-label">Library </label>
-              <input class="form-control" type="text" id="library_name" name="library_name" value="{{ per.library_name }}" placeholder="{{ per.library_name }}" aria-label="default input example" readonly>
-      
-              <label for="new_library" class="form-label text-danger">New Library</label>
-              <input class="form-control text-danger" type="text" id="new_library" name="new_library" value="{{ per.new_library }}" placeholder="{{ per.new_library }}" aria-label="default input example">
-
-              <label for="location_name" class="form-label">Location</label>
-              <input class="form-control" type="text" id="location_name" name="location_name" value="{{ per.location_name }}" placeholder="{{ per.location_name }}" aria-label="default input example" readonly>
-      
-              <label for="new_location" class="form-label text-danger">New Library</label>
-              <input class="form-control text-danger" type="text" id="new_location" name="new_location" value="{{ per.new_location }}" placeholder="{{ per.new_location }}" aria-label="default input example">
-
-              <label for="classmark" class="form-label">Classmark</label>
-              <input class="form-control" type="text" id="classmark" name="classmark" value="{{ per.classmark }}" placeholder="{{ per.classmark }}" aria-label="default input example" readonly>
-      
-              <label for="new_per_number" class="form-label text-danger">New Per Number</label>
-              <input class="form-control text-danger" type="text" id="new_per_number" name="new_per_number" value="{{ per.new_per_number }}" placeholder="{{ per.new_per_number }}" aria-label="default input example">
-
-              <label for="holdings_and_wants" class="form-label">Holdings and Wants</label>
-              <input class="form-control " type="text" id="holdings_and_wants" name="holdings_and_wants" value="{{ per.holdings_and_wants }}" placeholder="{{ per.holdings_and_wants }}" aria-label="default input example" readonly></textarea>
-      
-              <label for="new_holdings" class="form-label text-danger">New Holdings</label>
-              <textarea class="form-control text-danger" type="textarea" id="new_holdings" name="new_holdings" value="{{ per.new_holdings }}" placeholder="{{ per.new_holdings }}" aria-label="default input example"></textarea>
-
-              <label for="new_wants_and_notes" class="form-label text-danger">New Wants and Notes</label>
-              <textarea class="form-control text-danger" type="textarea" id="new_wants_and_notes" name="new_wants_and_notes" value="{{ per.new_wants_and_notes }}" placeholder="{{ per.new_wants_and_notes }}" aria-label="default input example"></textarea>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="labeled_on_shelf" value="{{ per.labeled_on_shelf }}">
-                <label class="form-check-label" for="labeled_on_shelf">Labeled On Shelf</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="amended_on_alma" value="{{ per.amended_on_alma }}">
-                <label class="form-check-label" for="amended_on_alma">Changed on Alma</label>
-              </div>
-
-              <input class="hidden" type="hidden" value="{{ per.id }}" name="id"></input>
-      
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Update</button>
-          </form>
-          </div>
-        </div>
-      </div>
-      </div>
-  </div>
-    {% endfor %}
-    
+  </div>    
     {% endblock content %}

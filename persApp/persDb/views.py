@@ -1,3 +1,4 @@
+from pickle import FALSE
 from pyexpat import model
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -69,9 +70,7 @@ def update_view(request, id):
         new_holdings = request.POST['new_holdings']
         new_wants_and_notes = request.POST['new_wants_and_notes']
         labeled_on_shelf = request.POST['labeled_on_shelf']
-        print(labeled_on_shelf)
-
-        # amended_on_alma = request.POST['amended_on_alma']
+        amended_on_alma = request.POST['amended_on_alma']
 
         obj.new_library = new_library
         obj.new_location = new_location
@@ -79,8 +78,7 @@ def update_view(request, id):
         obj.new_holdings = new_holdings
         obj.new_wants_and_notes = new_wants_and_notes
         obj.labeled_on_shelf = labeled_on_shelf
-        # obj.amended_on_alma = amended_on_alma
-        print(obj.labeled_on_shelf)
+        obj.amended_on_alma = amended_on_alma
 
         obj.save()
 
@@ -102,12 +100,12 @@ class ToUpdateResultsView(ListView):
         return object_list
 
 class RetentionResultsView(ListView):
-    model = PeriodicalsOctavo
+    model = PeriodicalsUKRRStatus
     template_name = 'retention_results.html'
    
     def get_queryset(self):
         query = self.request.GET.get('q')
-        object_list = PeriodicalsOctavo.objects.filter(
+        object_list = PeriodicalsUKRRStatus.objects.filter(
             Q(title__icontains=query) | Q(issn__icontains=query)
         )
         return object_list
