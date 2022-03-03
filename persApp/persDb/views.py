@@ -1,4 +1,3 @@
-from pickle import FALSE
 from pyexpat import model
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponseRedirect
@@ -96,7 +95,6 @@ class ToUpdateResultsView(ListView):
             labeled_on_shelf='True',
             amended_on_alma='False'
         )
-        print(object_list)
         return object_list
 
 class RetentionResultsView(ListView):

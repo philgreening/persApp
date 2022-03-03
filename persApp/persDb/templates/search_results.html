@@ -87,13 +87,39 @@
 
               <label for="new_wants_and_notes" class="form-label text-danger">New Wants and Notes</label>
               <textarea class="form-control text-danger" type="textarea" id="new_wants_and_notes" name="new_wants_and_notes" value="{{ per.new_wants_and_notes }}" placeholder="{{ per.new_wants_and_notes }}" aria-label="default input example"></textarea>
-              <div class="form-check form-check-inline" id="checkbox_shelf">
-                <input class="form-check-input" type="checkbox" id="labeled_on_shelf" value="{{ per.labeled_on_shelf }}">
+              <!-- <div class="form-check form-check-inline" id="checkbox_shelf">
+                <input class="form-check-input" type="checkbox" id="labeled_on_shelf" value="{{ per.labeled_on_shelf }}" name="labeled_on_shelf">
                 <label class="form-check-label" for="labeled_on_shelf">Labeled On Shelf</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="amended_on_alma" value="{{ per.amended_on_alma }}">
+              </div> -->
+              <!-- <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="amended_on_alma" value="{{ per.amended_on_alma }}" name="amended_on_alma">
                 <label class="form-check-label" for="amended_on_alma">Changed on Alma</label>
+              </div> -->
+
+              
+              <div class="input-group">
+                <!-- <button class="input-group-append btn" type="button" id="labeled_on_shelf" value="{{ per.labeled_on_shelf }}" name="labeled_on_shelf"> -->
+                <button class="input-group-append btn" type="button" id="labeled_on_shelf_btn" name="labeled_on_shelf_btn">
+                <input type="hidden" id="labeled_on_shelf" value="{{ per.labeled_on_shelf }}" name="labeled_on_shelf">
+                  {% if per.labeled_on_shelf %}
+                  <i onclick="tick(this)" class="fa-solid fa-circle-check" ></i>
+                  {% else %}
+                  <i onclick="tick(this)" class="fa-solid fa-circle-xmark" ></i>
+                  {% endif %}
+                </button>
+                  <label class="label" for="labeled_on_shelf">Labelled On Shelf</label>
+              </div>
+
+              <div class="input-group">
+                <button class="input-group-prepend btn" type="button" id="amended_on_alma_btn" name="amended_on_alma_btn">
+                  <input type="hidden" id="amended_on_alma" value="{{ per.amended_on_alma }}" name="amended_on_alma">
+                  {% if per.amended_on_alma %}
+                  <i onclick="tick(this)" class="fa-solid fa-circle-check" id="tick2"></i>
+                  {% else %}
+                  <i onclick="tick(this)" class="fa-solid fa-circle-xmark" id="tick2"></i>
+                  {% endif %}
+                </button>
+                  <label class="label" for="amended_on_alma">Changed on Alma</label>
               </div>
 
               <input class="hidden" type="hidden" value="{{ per.id }}" name="id"></input>
@@ -109,47 +135,40 @@
   </div>
     {% endfor %}
     <script>
-      let checkvalue = document.querySelector('#labeled_on_shelf').value;
-      const checkbox = document.querySelector('#labeled_on_shelf');
-      console.log(checkvalue + " :checkvalue")
+      const checkLabeled = document.querySelector('#labeled_on_shelf');
+      const checkLabledBtn = document.querySelector('#labeled_on_shelf_btn');
 
-      let checkvalue2 = document.querySelector('#amended_on_alma').value;
-      const checkbox2 = document.querySelector('#amended_on_alma');
-      console.log(checkvalue2 + " :checkvalue2")
-
-
-      if (checkvalue === 'True'){
-        checkbox.checked = true;
-        console.log(checkvalue = " :checkvalue")
-      }else {
-        checkbox.checked = false;
-        console.log(checkvalue + " :checkvalue")
-      }
-
-      if (checkvalue2 === 'True'){
-        checkbox2.checked = true;
-        console.log(checkvalue2 + " :checkvalue2")
-      }else {
-        checkbox2.checked = false;
-        console.log(checkvalue2 + " :checkvalue2")
-      }
-
-      let checkBoxInput = document.querySelectorAll('input[type=checkbox]');
-
-      console.log(checkBoxInput);
-      checkBoxInput.forEach(function(checkbox){
-        checkbox.addEventListener('change', function() {
-          if(this.checked){
-            console.log("checkbox checked")
-            checkbox.setAttribute('value', "True")
-            console.log(checkbox)
-          }else{
-            console.log("checkbox is not checked")
-            checkbox.setAttribute('value', "False")
-            console.log(checkbox)
-          }
-        })
+      //Selects and changes value on changed on labeled on shelf button
+      checkLabledBtn.addEventListener('click', function(){
+        console.log('click')
+        if(checkLabeled.value == 'True'){
+          checkLabeled.value = 'False';
+          console.log(checkLabeled.value + " :checkvalue F")
+        }else{
+          checkLabeled.value = 'True'
+          console.log(checkLabeled.value + " :checkvalue T")
+        }
       })
+
+      //Selects and changes value on changed on alma button
+      const checkAlma = document.querySelector('#amended_on_alma');
+      const checkAlmaBtn = document.querySelector('#amended_on_alma_btn' );
+
+      checkAlmaBtn.addEventListener('click', function(){
+        console.log('click')
+        if(checkAlma.value == 'True'){
+          checkAlma.value = 'False';
+          console.log(checkAlma.value + " :checkvalue F")
+        }else{
+          checkAlma.value = 'True'
+          console.log(checkAlma.value + " :checkvalue T")
+        }
+      })
+
+      function tick(x) {
+        x.classList.toggle("fa-circle-xmark");
+        x.classList.toggle("fa-circle-check");
+      }
 
     </script>
 
