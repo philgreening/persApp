@@ -1,111 +1,286 @@
 {% extends "base.html" %}
 
-
 {% block content %}
 <div class="container p-4">
-  <h1 class="text-center">Records to be Updated on Alma</h1>
-  <table class="table p-4" >
-      <thead>
-          <tr>
-          <th scope="col">ISSN</th>
-          <th scope="col">MMS ID</th>
-          <th scope="col">Library Name</th>
-          <th scope="col">location Name</th>
-          <th scope="col">Title</th>
-          <th scope="col">Classmark</th>
-          <th scope="col">Holdings And Wants</th>
-          <th scope="col">Edit</th>
-          </tr>
-      </thead>
-      <tbody>
-          {% for per in object_list %}
-              <tr>
-              <td>{{ per.issn }}</td>
-              <td>{{ per.mms_id}}</td>
-              <td>{{ per.library_name}}</td>
-              <td>{{ per.location_name}}</td>
-              <td>{{ per.title }}</td>
-              <td>{{ per.classmark }}</td>
-              <td>{{ per.holdings_and_wants }}</td>
-              <td><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editModal-{{ per.id }}">
-              <i class="fas fa-edit"></i>
-              </button>
-              </td>          
-          </tr>
-          {% endfor %}
-      </tbody>
-      </table>
-
+  {% if object_list %}
+  <h1 class="text-center">Records to be updated on Alma</h1>
+  <table class="table p-4">
+    <thead>
+      <tr>
+        <th scope="col">ISSN</th>
+        <th scope="col">MMS ID</th>
+        <th scope="col">Library Name</th>
+        <th scope="col">location Name</th>
+        <th scope="col">Title</th>
+        <th scope="col">Classmark</th>
+        <th scope="col">Holdings And Wants</th>
+        <th scope="col">View</th>
+        {% if user.is_authenticated %}
+        <th scope="col">Edit</th>
+        {% endif %}
+      </tr>
+    </thead>
+    <tbody>
       {% for per in object_list %}
+      <tr>
+        <td>{{ per.issn }}</td>
+        <td>{{ per.mms_id}}</td>
+        <td>{{ per.library_name}}</td>
+        <td>{{ per.location_name}}</td>
+        <td>{{ per.title }}</td>
+        <td>{{ per.classmark }}</td>
+        <td>{{ per.holdings_and_wants }}</td>
+        <td><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#viewModal-{{ per.id }}">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </td>
+        {% if user.is_authenticated %}
+        <td><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editModal-{{ per.id }}">
+            <i class="fas fa-edit"></i>
+          </button>
+        </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <h1 class="text-center p-4">No matches found</h1>
+  {% endif %}
 
-          <!-- Edit Modal -->
-      <div class="modal fade" id="editModal-{{ per.id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">{{ per.title }}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form action="../updated/{{ per.id }}" method="POST">
-              {% csrf_token %}
-      
-              <label for="issn" class="form-label">ISSN</label>
-              <input class="form-control" type="text" id="issn" name="issn" value="{{ per.issn }}" placeholder="{{ per.issn }}" aria-label="default input example" readonly>
-      
-              <label for="mms_id" class="form-label">MMS ID</label>
-              <input class="form-control" type="number" id="email" name="mms_id" value="{{ per.mms_id }}" placeholder="{{ per.mms_id }}" aria-label="default input example" readonly>
-      
-              <label for="library_name" class="form-label">Library </label>
-              <input class="form-control" type="text" id="library_name" name="library_name" value="{{ per.library_name }}" placeholder="{{ per.library_name }}" aria-label="default input example" readonly>
-      
-              <label for="new_library" class="form-label text-danger">New Library</label>
-              <input class="form-control text-danger" type="text" id="new_library" name="new_library" value="{{ per.new_library }}" placeholder="{{ per.new_library }}" aria-label="default input example">
 
-              <label for="location_name" class="form-label">Location</label>
-              <input class="form-control" type="text" id="location_name" name="location_name" value="{{ per.location_name }}" placeholder="{{ per.location_name }}" aria-label="default input example" readonly>
-      
-              <label for="new_location" class="form-label text-danger">New Library</label>
-              <input class="form-control text-danger" type="text" id="new_location" name="new_location" value="{{ per.new_location }}" placeholder="{{ per.new_location }}" aria-label="default input example">
+  {% for per in object_list %}
 
-              <label for="classmark" class="form-label">Classmark</label>
-              <input class="form-control" type="text" id="classmark" name="classmark" value="{{ per.classmark }}" placeholder="{{ per.classmark }}" aria-label="default input example" readonly>
-      
-              <label for="new_per_number" class="form-label text-danger">New Per Number</label>
-              <input class="form-control text-danger" type="text" id="new_per_number" name="new_per_number" value="{{ per.new_per_number }}" placeholder="{{ per.new_per_number }}" aria-label="default input example">
+  <!-- Edit Modal -->
+  <div class="modal fade" id="editModal-{{ per.id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ per.title }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="../updated/{{ per.id }}" method="POST">
+            {% csrf_token %}
 
-              <label for="holdings_and_wants" class="form-label">Holdings and Wants</label>
-              <input class="form-control " type="text" id="holdings_and_wants" name="holdings_and_wants" value="{{ per.holdings_and_wants }}" placeholder="{{ per.holdings_and_wants }}" aria-label="default input example" readonly></textarea>
-      
-              <label for="new_holdings" class="form-label text-danger">New Holdings</label>
-              <textarea class="form-control text-danger" type="textarea" id="new_holdings" name="new_holdings" value="{{ per.new_holdings }}" placeholder="{{ per.new_holdings }}" aria-label="default input example"></textarea>
+            <label for="issn" class="form-label">ISSN</label>
+            <input class="form-control" type="text" id="issn" name="issn" value="{{ per.issn }}"
+              placeholder="{{ per.issn }}" aria-label="default input example" readonly>
 
-              <label for="new_wants_and_notes" class="form-label text-danger">New Wants and Notes</label>
-              <textarea class="form-control text-danger" type="textarea" id="new_wants_and_notes" name="new_wants_and_notes" value="{{ per.new_wants_and_notes }}" placeholder="{{ per.new_wants_and_notes }}" aria-label="default input example"></textarea>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="labeled_on_shelf" value="{{ per.labeled_on_shelf }}">
-                <label class="form-check-label" for="labeled_on_shelf">Labeled On Shelf</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="amended_on_alma" value="{{ per.amended_on_alma }}">
-                <label class="form-check-label" for="amended_on_alma">Changed on Alma</label>
-              </div>
+            <label for="mms_id" class="form-label">MMS ID</label>
+            <input class="form-control" type="number" id="email" name="mms_id" value="{{ per.mms_id }}"
+              placeholder="{{ per.mms_id }}" aria-label="default input example" readonly>
 
-              <input class="hidden" type="hidden" value="{{ per.id }}" name="id"></input>
-      
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Update</button>
+            <label for="library_name" class="form-label">Library </label>
+            <input class="form-control" type="text" id="library_name" name="library_name" value="{{ per.library_name }}"
+              placeholder="{{ per.library_name }}" aria-label="default input example" readonly>
+
+            <label for="new_library" class="form-label text-danger">New Library</label>
+            <input class="form-control text-danger" type="text" id="new_library" name="new_library"
+              value="{{ per.new_library }}" placeholder="{{ per.new_library }}" aria-label="default input example">
+
+            <label for="location_name" class="form-label">Location</label>
+            <input class="form-control" type="text" id="location_name" name="location_name"
+              value="{{ per.location_name }}" placeholder="{{ per.location_name }}" aria-label="default input example"
+              readonly>
+
+            <label for="new_location" class="form-label text-danger">New Location</label>
+            <input class="form-control text-danger" type="text" id="new_location" name="new_location"
+              value="{{ per.new_location }}" placeholder="{{ per.new_location }}" aria-label="default input example">
+
+            <label for="classmark" class="form-label">Classmark</label>
+            <input class="form-control" type="text" id="classmark" name="classmark" value="{{ per.classmark }}"
+              placeholder="{{ per.classmark }}" aria-label="default input example" readonly>
+
+            <label for="new_per_number" class="form-label text-danger">New Per Number</label>
+            <input class="form-control text-danger" type="text" id="new_per_number" name="new_per_number"
+              value="{{ per.new_per_number }}" placeholder="{{ per.new_per_number }}"
+              aria-label="default input example">
+
+            <label for="holdings_and_wants" class="form-label">Holdings and Wants</label>
+            <textarea class="form-control " type="text" id="holdings_and_wants" name="holdings_and_wants"
+              value="{{ per.holdings_and_wants }}" placeholder="{{ per.holdings_and_wants }}"
+              aria-label="default input example" readonly>{{ per.holdings_and_wants }}</textarea>
+
+            <label for="new_holdings" class="form-label text-danger">New Holdings</label>
+            <textarea class="form-control text-danger" type="textarea" id="new_holdings" name="new_holdings"
+              value="{{ per.new_holdings }}" placeholder="{{ per.new_holdings }}"
+              aria-label="default input example">{{ per.new_holdings }}</textarea>
+
+            <label for="new_wants_and_notes" class="form-label text-danger">New Wants and Notes</label>
+            <textarea class="form-control text-danger" type="textarea" id="new_wants_and_notes"
+              name="new_wants_and_notes" value="{{ per.new_wants_and_notes }}"
+              placeholder="{{ per.new_wants_and_notes }}"
+              aria-label="default input example">{{ per.new_wants_and_notes }}</textarea>
+
+            <div class="input-group">
+              <button class="input-group-append btn" type="button" id="labeled_on_shelf_btn"
+                name="labeled_on_shelf_btn">
+                <input type="hidden" id="labeled_on_shelf" value="{{ per.labeled_on_shelf }}" name="labeled_on_shelf">
+                {% if per.labeled_on_shelf %}
+                <i onclick="tick(this)" class="fa-solid fa-circle-check"></i>
+                {% else %}
+                <i onclick="tick(this)" class="fa-solid fa-circle-xmark"></i>
+                {% endif %}
+              </button>
+              <label class="label" for="labeled_on_shelf">Labelled On Shelf</label>
+            </div>
+
+            <div class="input-group">
+              <button class="input-group-prepend btn" type="button" id="amended_on_alma_btn" name="amended_on_alma_btn">
+                <input type="hidden" id="amended_on_alma" value="{{ per.amended_on_alma }}" name="amended_on_alma">
+                {% if per.amended_on_alma %}
+                <i onclick="tick(this)" class="fa-solid fa-circle-check" id="tick2"></i>
+                {% else %}
+                <i onclick="tick(this)" class="fa-solid fa-circle-xmark" id="tick2"></i>
+                {% endif %}
+              </button>
+              <label class="label" for="amended_on_alma">Changed on Alma</label>
+            </div>
+
+            <input class="hidden" type="hidden" value="{{ per.id }}" name="id"></input>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Update</button>
           </form>
-          </div>
         </div>
       </div>
-      </div>
+    </div>
   </div>
-    {% endfor %}
 
+  <!-- View Modal -->
+  <div class="modal fade" id="viewModal-{{ per.id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ per.title }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="../updated/{{ per.id }}" method="POST">
+            {% csrf_token %}
 
-    
+            <label for="issn" class="form-label">ISSN</label>
+            <input class="form-control" type="text" id="issn" name="issn" value="{{ per.issn }}"
+              placeholder="{{ per.issn }}" aria-label="default input example" readonly>
 
+            <label for="mms_id" class="form-label">MMS ID</label>
+            <input class="form-control" type="number" id="email" name="mms_id" value="{{ per.mms_id }}"
+              placeholder="{{ per.mms_id }}" aria-label="default input example" readonly>
 
-    {% endblock content %}
+            <label for="library_name" class="form-label">Library </label>
+            <input class="form-control" type="text" id="library_name" name="library_name" value="{{ per.library_name }}"
+              placeholder="{{ per.library_name }}" aria-label="default input example" readonly>
+
+            <label for="new_library" class="form-label text-danger">New Library</label>
+            <input class="form-control text-danger" type="text" id="new_library" name="new_library"
+              value="{{ per.new_library }}" placeholder="{{ per.new_library }}" aria-label="default input example">
+
+            <label for="location_name" class="form-label">Location</label>
+            <input class="form-control" type="text" id="location_name" name="location_name"
+              value="{{ per.location_name }}" placeholder="{{ per.location_name }}" aria-label="default input example"
+              readonly>
+
+            <label for="new_location" class="form-label text-danger">New Location</label>
+            <input class="form-control text-danger" type="text" id="new_location" name="new_location"
+              value="{{ per.new_location }}" placeholder="{{ per.new_location }}" aria-label="default input example">
+
+            <label for="classmark" class="form-label">Classmark</label>
+            <input class="form-control" type="text" id="classmark" name="classmark" value="{{ per.classmark }}"
+              placeholder="{{ per.classmark }}" aria-label="default input example" readonly>
+
+            <label for="new_per_number" class="form-label text-danger">New Per Number</label>
+            <input class="form-control text-danger" type="text" id="new_per_number" name="new_per_number"
+              value="{{ per.new_per_number }}" placeholder="{{ per.new_per_number }}" aria-label="default input example"
+              readonly>
+
+            <label for="holdings_and_wants" class="form-label">Holdings and Wants</label>
+            <textarea class="form-control " type="text" id="holdings_and_wants" name="holdings_and_wants"
+              value="{{ per.holdings_and_wants }}" placeholder="{{ per.holdings_and_wants }}"
+              aria-label="default input example" readonly>{{ per.holdings_and_wants }}</textarea>
+
+            <label for="new_holdings" class="form-label text-danger">New Holdings</label>
+            <textarea class="form-control text-danger" type="textarea" id="new_holdings" name="new_holdings"
+              value="{{ per.new_holdings }}" placeholder="{{ per.new_holdings }}" aria-label="default input example"
+              readonly>{{ per.new_holdings }}</textarea>
+
+            <label for="new_wants_and_notes" class="form-label text-danger">New Wants and Notes</label>
+            <textarea class="form-control text-danger" type="textarea" id="new_wants_and_notes"
+              name="new_wants_and_notes" value="{{ per.new_wants_and_notes }}"
+              placeholder="{{ per.new_wants_and_notes }}" aria-label="default input example"
+              readonly>{{ per.new_wants_and_notes }}</textarea>
+
+            <div class="input-group">
+              <button class="input-group-append btn" type="button" id="labeled_on_shelf_btn"
+                name="labeled_on_shelf_btn">
+                <input type="hidden" id="labeled_on_shelf" value="{{ per.labeled_on_shelf }}" name="labeled_on_shelf"
+                  readonly>
+                {% if per.labeled_on_shelf %}
+                <i class="fa-solid fa-circle-check"></i>
+                {% else %}
+                <i class="fa-solid fa-circle-xmark"></i>
+                {% endif %}
+              </button>
+              <label class="label" for="labeled_on_shelf">Labelled On Shelf</label>
+            </div>
+
+            <div class="input-group">
+              <button class="input-group-prepend btn" type="button" id="amended_on_alma_btn" name="amended_on_alma_btn">
+                <input type="hidden" id="amended_on_alma" value="{{ per.amended_on_alma }}" name="amended_on_alma"
+                  readonly>
+                {% if per.amended_on_alma %}
+                <i class="fa-solid fa-circle-check" id="tick2"></i>
+                {% else %}
+                <i class="fa-solid fa-circle-xmark" id="tick2"></i>
+                {% endif %}
+              </button>
+              <label class="label" for="amended_on_alma">Changed on Alma</label>
+            </div>
+
+            <input class="hidden" type="hidden" value="{{ per.id }}" name="id"></input>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+<script>
+  const checkLabeled = document.querySelector('#labeled_on_shelf');
+  const checkLabledBtn = document.querySelector('#labeled_on_shelf_btn');
+
+  //Selects and changes value on changed on labeled on shelf button
+  checkLabledBtn.addEventListener('click', function () {
+    console.log('click')
+    if (checkLabeled.value == 'True') {
+      checkLabeled.value = 'False';
+      console.log(checkLabeled.value + " :checkvalue F")
+    } else {
+      checkLabeled.value = 'True'
+      console.log(checkLabeled.value + " :checkvalue T")
+    }
+  })
+
+  //Selects and changes value on changed on alma button
+  const checkAlma = document.querySelector('#amended_on_alma');
+  const checkAlmaBtn = document.querySelector('#amended_on_alma_btn');
+
+  checkAlmaBtn.addEventListener('click', function () {
+    console.log('click')
+    if (checkAlma.value == 'True') {
+      checkAlma.value = 'False';
+      console.log(checkAlma.value + " :checkvalue F")
+    } else {
+      checkAlma.value = 'True'
+      console.log(checkAlma.value + " :checkvalue T")
+    }
+  })
+
+  function tick(x) {
+    x.classList.toggle("fa-circle-xmark");
+    x.classList.toggle("fa-circle-check");
+  }
+</script>
+
+{% endblock content %}

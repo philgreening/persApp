@@ -1,46 +1,50 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Updated!</h1>
-<div class="container">
+<h1 class="text-center p-4 text-danger">Updated!</h1>
+<div class="container ">
+    <div row>
+        <div class= "col-6 offset-md-3">
  <ul class="list-group">  
-    <li class="list-group-item list-group-item-success">
-        <h4>Title: {{ per_details.title }}</h4>
+    <li class="list-group-item text-center">
+        <h1>{{ per_details.title }}</h1>
     </li>
     <li class="list-group-item list-group-item-success">
-        <h4>MMS Id: {{ per_details.mms_id }}</h4>
+        <h5>MMS Id: {{ per_details.mms_id }}</h5>
     </li>
     <li class="list-group-item list-group-item-success">
-        <h4>ISSN: {{ per_details.issn }}</h4>
+        <h5>ISSN: {{ per_details.issn }}</h5>
     </li>
     <li class="list-group-item list-group-item-success">
-        <h4>Library: {{ per_details.library_name }}</h4>
+        <h5>Library: {{ per_details.library_name }}</h5>
     </li>
     <li class="list-group-item list-group-item-success">
-        <h4>Location: {{ per_details.location_name }}</h4>
+        <h5>Location: {{ per_details.location_name }}</h5>
     </li>
     <li class="list-group-item list-group-item-success">
-        <h4>Classmark: {{ per_details.classmark }}</h4>
+        <h5>Classmark: {{ per_details.classmark }}</h5>
     </li>
     <li class="list-group-item list-group-item-success">
-        <h4>New Per Number: {{ per_details.new_per_number }}</h4>
+        <h5 class="text-danger">New Per Number: {{ per_details.new_per_number }}</h5>
     </li>
     <li class="list-group-item list-group-item-success">
-        <h4>Holdings and Wants: {{ per_details.holdings_and_wants }}</h4>
+        <h5>Holdings and Wants: {{ per_details.holdings_and_wants }}</h5>
     </li>
     <li class="list-group-item list-group-item-success">
-        <h4>New Holdings: {{ per_details.new_holdings }}</h4>
+        <h5 class="text-danger">New Holdings: {{ per_details.new_holdings }}</h5>
     </li>
     <li class="list-group-item list-group-item-success">
-        <h4>New Wants and Notes: {{ per_details.new_holdings }}</h4>
+        <h5 class="text-danger">New Wants and Notes: {{ per_details.new_holdings }}</h5>
     </li>
     <li class="list-group-item list-group-item-success">
-        <h4>Labeled On Shelf: {{ per_details.labeled_on_shelf }}</h4>
+        <h5 class="text-danger">Labeled On Shelf: {{ per_details.labeled_on_shelf }}</h5>
     </li>
     <li class="list-group-item list-group-item-success">
-        <h4>Amended On Alma: {{ per_details.amended_on_alma }}</h4>
+        <h5 class="text-danger">Amended On Alma: {{ per_details.amended_on_alma }}</h5>
     </li>
   </ul>
+</div>
+</div>
 </div>
 
 
