@@ -29,7 +29,7 @@ class PeriodicalsUKRRStatus(models.Model):
     cycle_name = models.CharField(max_length=10, null=False, blank=False)
     cycle_list_name = models.CharField(max_length=10, null=False, blank=False)
     UKRR_id = models.IntegerField(null=False, blank=False)
-    issn_no_hyphen = models.CharField(max_length=10, null=True, blank=True)
+    # issn_no_hyphen = models.CharField(max_length=10, null=True, blank=True)
     issn = models.CharField(max_length=10, null=True, blank=True)
     title = models.CharField(max_length=250, null = False, blank=False)
     offering = models.CharField(max_length=250, null = False, blank=False)
