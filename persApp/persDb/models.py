@@ -1,5 +1,4 @@
 from django.db import models
-from django.urls import reverse
 
 
 class PeriodicalsOctavo(models.Model):
@@ -20,16 +19,12 @@ class PeriodicalsOctavo(models.Model):
 
     def __str__(self):
         return self.mms_id
-    
-    # def get_absolute_url(self):
-    #     return reverse('update_per', kwargs={'pk': self.pk})
 
 class PeriodicalsUKRRStatus(models.Model):
     library_code = models.CharField(max_length=10, null=False, blank=False)
     cycle_name = models.CharField(max_length=10, null=False, blank=False)
     cycle_list_name = models.CharField(max_length=10, null=False, blank=False)
     UKRR_id = models.IntegerField(null=False, blank=False)
-    # issn_no_hyphen = models.CharField(max_length=10, null=True, blank=True)
     issn = models.CharField(max_length=10, null=True, blank=True)
     title = models.CharField(max_length=250, null = False, blank=False)
     offering = models.CharField(max_length=250, null = False, blank=False)

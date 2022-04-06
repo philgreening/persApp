@@ -1,3 +1,4 @@
+from operator import index
 import os
 import sys
 import django
@@ -7,7 +8,6 @@ from collections import defaultdict
 from pathlib import Path
 
 
-#sys.path.append('/home/philgreening/AWD_Midterm/proteinAPI')
 sys.path.append('../../persApp/')
 
 
@@ -17,8 +17,7 @@ django.setup()
 
 from persDb.models import *
 
-# sequences_data_file =  '/home/philgreening/AWD_Midterm/proteinAPI/data/assignment_data_sequences.csv'
-persData =  Path(__file__).parent / 'data\All_Holdings_Offered.csv'
+persData =  Path(__file__).parent / 'data\All_Holdings_Offered3.csv'
 print('file loaded...')
 
 
@@ -26,14 +25,13 @@ print('file loaded...')
 
 pers = defaultdict(list)
 
-
-# Reads protein set csv file
+# Reads protein set csv file (remember to add numbered index column to inut file)
 with open(persData, encoding='utf8') as csv_file:
        csv_reader = csv.reader(csv_file, delimiter=',')
        lines = 0
        line_count = 0
        for row in csv_reader:
-            pers[row[0]] = row[0:27]
+            pers[row[0]] = row[0:28]
             line_count += 1
 
        print('Pers - Check first row fields: ' + str(pers[row[0]]))
@@ -49,41 +47,48 @@ PeriodicalsUKRRStatus.objects.all().delete()
 pers_row = {}
 
 print('data loading...')
-# creates database entries in protein model
+
+#creates an entry into the UKRR pers database
+
+counter = 0
 for pers, data in pers.items():
 
-       #if unable to match sequence data to protein_id, Null is added to sequence
        # try:
-       row = PeriodicalsUKRRStatus.objects.create(library_code = data[0],
-                                        cycle_name = data[1],
-                                        cycle_list_name = data[2],
-                                        UKRR_id = data[3],
-                                        issn = data[4],
-                                        title = data[5],
-                                        offering = data[6],
-                                        supplements = data[7],
-                                        gaps = data[8],
-                                        shelf_space = data[9],
-                                        scarcity = data[10],
-                                        holding = data[11],
-                                        overlap = data[12],
-                                        bl_scarcity = data[13],
-                                        bl_scarcity_date = data[14],
-                                        ml_scarcity = data[15],
-                                        ml_scarcity_date = data[16],
-                                        bl_response = data[17],
-                                        not_requested = data[18],
-                                        holdings_requested = data[19],
-                                        date_of_request = data[20],
-                                        bl_return_ref = data[21],
-                                        bl_overlap = data[22],
-                                        retention_status = data[23],
-                                        transfer_to_bl = data[24],
-                                        retain = data[25],
-                                        dispose = data[26],
+       counter  += 1
+       row = PeriodicalsUKRRStatus.objects.create(library_code = data[1],
+                                        cycle_name = data[2],
+                                        cycle_list_name = data[3],
+                                        UKRR_id = data[4],
+                                        issn = data[5],
+                                        title = data[6],
+                                        offering = data[7],
+                                        supplements = data[8],
+                                        gaps = data[9],
+                                        shelf_space = data[10],
+                                        scarcity = data[11],
+                                        holding = data[12],
+                                        overlap = data[13],
+                                        bl_scarcity = data[14],
+                                        bl_scarcity_date = data[15],
+                                        ml_scarcity = data[16],
+                                        ml_scarcity_date = data[17],
+                                        bl_response = data[18],
+                                        not_requested = data[19],
+                                        holdings_requested = data[20],
+                                        date_of_request = data[21],
+                                        bl_return_ref = data[22],
+                                        bl_overlap = data[23],
+                                        retention_status = data[24],
+                                        transfer_to_bl = data[25],
+                                        retain = data[26],
+                                        dispose = data[27],
        )
        row.save()
        pers_row[data[0]] = row
+
+print(counter)
+
+
 
 
 

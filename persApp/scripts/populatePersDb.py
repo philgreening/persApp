@@ -32,7 +32,6 @@ with open(persData, encoding='utf8') as csv_file:
        csv_reader = csv.reader(csv_file, delimiter=',')
        lines = 0
        for row in csv_reader:
-              #splits row 3 into genus and species fields
               pers[row[0]] = row[0:14]
        print('Protein - Check first row fields: ' + str(pers[row[0]]))
        print('file read...')
