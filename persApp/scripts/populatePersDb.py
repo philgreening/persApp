@@ -18,7 +18,7 @@ django.setup()
 from persDb.models import *
 
 # sequences_data_file =  '/home/philgreening/AWD_Midterm/proteinAPI/data/assignment_data_sequences.csv'
-persData =  Path(__file__).parent / 'data\per1.txt'
+persData =  Path(__file__).parent / 'data/per1.txt'
 print('file loaded...')
 
 

@@ -80,19 +80,25 @@ WSGI_APPLICATION = 'persApp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# local db connection
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+# connection to heroku db
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'd4usfhfvk6p089',
+#         'USER': 'gnpkdayhamtkax',
+#         'PASSWORD': '0bfae4827295d1c9948e818d1bfd2e39be76261479ac76404c6bf3f17e5ba5fe',
+#         'HOST': 'ec2-99-80-170-190.eu-west-1.compute.amazonaws.com',
+#         'PORT':  '5432',
 #     }
 # }
-
-DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'ciba',
-        }
-    }
 
 # db_from_env = dj_database_url.config(conn_max_age=600)
 # DATABASES['default'].update(db_from_env)
