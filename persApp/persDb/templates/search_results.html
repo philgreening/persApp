@@ -15,6 +15,7 @@
           <th scope="col">Title</th>
           <th scope="col">Classmark</th>
           <th scope="col">Holdings And Wants</th>
+          <th scope="col" class="text-danger">New Per Number</th>
           <th scope="col">View</th>
           {% if user.is_authenticated %}
           <th scope="col">Edit</th>
@@ -31,6 +32,7 @@
               <td>{{ per.title }}</td>
               <td>{{ per.classmark }}</td>
               <td>{{ per.holdings_and_wants }}</td>
+              <td>{{ per.new_per_number }}</td>
               <td><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#viewModal-{{ per.id }}">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
