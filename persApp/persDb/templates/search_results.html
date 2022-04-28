@@ -144,8 +144,6 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form action="../updated/{{ per.id }}" method="POST">
-                    {% csrf_token %}
             
                     <label for="issn" class="form-label">ISSN</label>
                     <input class="form-control" type="text" id="issn" name="issn" value="{{ per.issn }}" placeholder="{{ per.issn }}" aria-label="default input example" readonly>
@@ -157,13 +155,13 @@
                     <input class="form-control" type="text" id="library_name" name="library_name" value="{{ per.library_name }}" placeholder="{{ per.library_name }}" aria-label="default input example" readonly>
             
                     <label for="new_library" class="form-label text-danger">New Library</label>
-                    <input class="form-control text-danger" type="text" id="new_library" name="new_library" value="{{ per.new_library }}" placeholder="{{ per.new_library }}" aria-label="default input example">
+                    <input class="form-control text-danger" type="text" id="new_library" name="new_library" value="{{ per.new_library }}" placeholder="{{ per.new_library }}" aria-label="default input example" readonly>
       
                     <label for="location_name" class="form-label">Location</label>
                     <input class="form-control" type="text" id="location_name" name="location_name" value="{{ per.location_name }}" placeholder="{{ per.location_name }}" aria-label="default input example" readonly>
             
                     <label for="new_location" class="form-label text-danger">New Location</label>
-                    <input class="form-control text-danger" type="text" id="new_location" name="new_location" value="{{ per.new_location }}" placeholder="{{ per.new_location }}" aria-label="default input example">
+                    <input class="form-control text-danger" type="text" id="new_location" name="new_location" value="{{ per.new_location }}" placeholder="{{ per.new_location }}" aria-label="default input example" readonly>
       
                     <label for="classmark" class="form-label">Classmark</label>
                     <input class="form-control" type="text" id="classmark" name="classmark" value="{{ per.classmark }}" placeholder="{{ per.classmark }}" aria-label="default input example" readonly>
