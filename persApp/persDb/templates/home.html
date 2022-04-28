@@ -6,7 +6,7 @@
         <h4 class="text-center">Search for a periodical</h4>
         <form action="{% url 'search_results' %}" method="get" id="search-form">
             <div class="input-group">
-                <input type="text" class="form-control" name="q" placeholder="Search by title, MMS id or ISSN" required>
+                <input type="text" class="form-control" name="q" placeholder="Search by title, MMS id or ISSN (with hyphen)" required>
                 <div class="input-group-append">
                     <button class="btn btn-secondary" type="submit" form="search-form">
                     <i class="fa fa-search"></i>
@@ -19,7 +19,7 @@
         <h4 class="text-center">Check the UKRR retention status of a periodical</h4>
         <form action="{% url 'retention_results' %}" method="get" id="search-retention-form">
             <div class="input-group">
-                <input type="text" class="form-control" name="q" placeholder="Search by title or ISSN" required>
+                <input type="text" class="form-control" name="q" placeholder="Search by title or ISSN (no hyphen or space)" required>
                 <div class="input-group-append">
                     <button class="btn btn-secondary" type="submit" form="search-retention-form">
                     <i class="fa fa-search"></i>
