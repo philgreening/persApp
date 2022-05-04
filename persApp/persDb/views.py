@@ -26,7 +26,8 @@ class SearchResultsView(ListView):
     def get_queryset(self):
         query = self.request.GET.get('q')
         object_list = PeriodicalsOctavo.objects.filter(
-            Q(title__icontains=query) | Q(mms_id__icontains=query) | Q(issn__icontains=query)
+            Q(title__icontains=query) | Q(mms_id__icontains=query) | 
+            Q(issn__icontains=query) | Q(classmark__icontains=query)
         )
         return object_list
     
