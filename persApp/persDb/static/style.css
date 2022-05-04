@@ -1,0 +1,7 @@
+/* style for font awesome tick and cross used on alma_updates.thml and search_results.html */
+.fa-circle-check{
+    color: green;
+}
+.fa-circle-xmark{
+    color: red;
+}

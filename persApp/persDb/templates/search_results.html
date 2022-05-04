@@ -117,7 +117,7 @@
                 <button class="input-group-prepend btn" type="button" id="amended_on_alma_btn" name="amended_on_alma_btn">
                   <input type="hidden" id="amended_on_alma" value="{{ per.amended_on_alma }}" name="amended_on_alma">
                   {% if per.amended_on_alma %}
-                  <i onclick="tick(this)" class="fa-solid fa-circle-check" id="tick2"></i>
+                  <i onclick="tick(this)" class="fa-solid fa-circle-check"  id="tick2"></i>
                   {% else %}
                   <i onclick="tick(this)" class="fa-solid fa-circle-xmark" id="tick2"></i>
                   {% endif %}
@@ -184,9 +184,9 @@
                       <button class="input-group-append btn" type="button" id="labeled_on_shelf_btn" name="labeled_on_shelf_btn">
                       <input type="hidden" id="labeled_on_shelf" value="{{ per.labeled_on_shelf }}" name="labeled_on_shelf" readonly>
                         {% if per.labeled_on_shelf %}
-                        <i class="fa-solid fa-circle-check" ></i>
+                        <i class="fa-solid fa-circle-check"></i>
                         {% else %}
-                        <i class="fa-solid fa-circle-xmark" ></i>
+                        <i class="fa-solid fa-circle-xmark"></i>
                         {% endif %}
                       </button>
                         <label class="label" for="labeled_on_shelf">Labelled On Shelf</label>
