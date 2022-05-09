@@ -25,7 +25,7 @@ print('file loaded...')
 
 pers = defaultdict(list)
 
-# Reads protein set csv file (remember to add numbered index column to inut file)
+# Reads persData set csv file (remember to add numbered index column to inut file)
 with open(persData, encoding='utf8') as csv_file:
        csv_reader = csv.reader(csv_file, delimiter=',')
        lines = 0
