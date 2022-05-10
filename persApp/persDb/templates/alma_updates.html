@@ -160,8 +160,6 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="../updated/{{ per.id }}" method="POST">
-            {% csrf_token %}
 
             <label for="issn" class="form-label">ISSN</label>
             <input class="form-control" type="text" id="issn" name="issn" value="{{ per.issn }}"
