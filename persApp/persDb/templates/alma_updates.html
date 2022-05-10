@@ -116,9 +116,9 @@
               aria-label="default input example">{{ per.new_wants_and_notes }}</textarea>
 
             <div class="input-group">
-              <button class="input-group-append btn" type="button" id="labeled_on_shelf_btn"
+              <button class="input-group-append btn labOnShelf" type="button" id="labeled_on_shelf_btn_edit{{ forloop.counter0 }}"
                 name="labeled_on_shelf_btn">
-                <input type="hidden" id="labeled_on_shelf" value="{{ per.labeled_on_shelf }}" name="labeled_on_shelf">
+                <input type="hidden" id="labeled_on_shelf_edit{{ forloop.counter0 }}" value="{{ per.labeled_on_shelf }}" name="labeled_on_shelf">
                 {% if per.labeled_on_shelf %}
                 <i onclick="tick(this)" class="fa-solid fa-circle-check"></i>
                 {% else %}
@@ -129,8 +129,8 @@
             </div>
 
             <div class="input-group">
-              <button class="input-group-prepend btn" type="button" id="amended_on_alma_btn" name="amended_on_alma_btn">
-                <input type="hidden" id="amended_on_alma" value="{{ per.amended_on_alma }}" name="amended_on_alma">
+              <button class="input-group-prepend btn" type="button" id="amended_on_alma_btn_edit{{ forloop.counter0 }}" name="amended_on_alma_btn">
+                <input type="hidden" id="amended_on_alma_edit{{ forloop.counter0 }}" value="{{ per.amended_on_alma }}" name="amended_on_alma">
                 {% if per.amended_on_alma %}
                 <i onclick="tick(this)" class="fa-solid fa-circle-check" id="tick2"></i>
                 {% else %}
@@ -139,6 +139,7 @@
               </button>
               <label class="label" for="amended_on_alma">Changed on Alma</label>
             </div>
+
 
             <input class="hidden" type="hidden" value="{{ per.id }}" name="id"></input>
 
@@ -243,41 +244,64 @@
   </div>
 </div>
 {% endfor %}
+
 <script>
-  const checkLabeled = document.querySelector('#labeled_on_shelf');
-  const checkLabledBtn = document.querySelector('#labeled_on_shelf_btn');
+    //variable to give numebr of items value
+    const itemCount = document.querySelectorAll('.labOnShelf');
 
-  //Selects and changes value on changed on labeled on shelf button
-  checkLabledBtn.addEventListener('click', function () {
-    console.log('click')
-    if (checkLabeled.value == 'True') {
-      checkLabeled.value = 'False';
-      console.log(checkLabeled.value + " :checkvalue F")
-    } else {
-      checkLabeled.value = 'True'
-      console.log(checkLabeled.value + " :checkvalue T")
+    //Arrays to hold button values
+    let checkLabeled = [];
+    let checkLabledBtn = [];
+
+    for(let i=0; i < itemCount.length; i++){
+
+        //push button values to arrays
+        checkLabeled.push(document.querySelector('#labeled_on_shelf_edit' + [i]));
+        checkLabledBtn.push(document.querySelector('#labeled_on_shelf_btn_edit'+ [i]));
+
+       //Selects and changes value on changed on labeled on shelf button
+        checkLabledBtn[i].addEventListener('click', function () {
+            console.log('click')
+            if (checkLabeled[i].value == 'True') {
+              checkLabeled[i].value = 'False';
+              console.log(checkLabeled[i].value + " :checkvalue F")
+            } else {
+              checkLabeled[i].value = 'True'
+              console.log(checkLabeled[i].value + " :checkvalue T")
+            }
+        })
     }
-  })
 
-  //Selects and changes value on changed on alma button
-  const checkAlma = document.querySelector('#amended_on_alma');
-  const checkAlmaBtn = document.querySelector('#amended_on_alma_btn');
+    //Arrays to hold button values
+    let checkAlma = [];
+    let checkAlmaBtn = [];
 
-  checkAlmaBtn.addEventListener('click', function () {
-    console.log('click')
-    if (checkAlma.value == 'True') {
-      checkAlma.value = 'False';
-      console.log(checkAlma.value + " :checkvalue F")
-    } else {
-      checkAlma.value = 'True'
-      console.log(checkAlma.value + " :checkvalue T")
+    //Selects and changes value on changed on alma button
+    for(let i=0; i < itemCount.length; i++){
+
+        //push button values to arrays
+        checkAlma.push(document.querySelector('#amended_on_alma_edit' + [i]));
+        checkAlmaBtn.push(document.querySelector('#amended_on_alma_btn_edit'+ [i]));
+
+       //Selects and changes value on changed on labeled on shelf button
+        checkAlmaBtn[i].addEventListener('click', function () {
+            console.log('click')
+            if (checkAlma[i].value == 'True') {
+              checkAlma[i].value = 'False';
+              console.log(checkAlma[i].value + " :checkvalue F")
+            } else {
+              checkAlma[i].value = 'True'
+              console.log(checkAlma[i].value + " :checkvalue T")
+            }
+        })
     }
-  })
+
   // function to toggle x or tick
   function tick(x) {
     x.classList.toggle("fa-circle-xmark");
     x.classList.toggle("fa-circle-check");
   }
+
 </script>
 {% endif %}
 {% endblock content %}
