@@ -38,13 +38,13 @@
                 </button>
                 </td>
                 {% if user.is_authenticated %}
-  
+
               <td><button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editModal-{{ per.id }}">
               <i class="fas fa-edit"></i>
               </button>
               </td>
               {% endif %}
-          
+
           </tr>
           {% endfor %}
       </tbody>
@@ -52,7 +52,7 @@
       {% else %}
       <h1 class="text-center p-4">No matches found</h1>
       {% endif %}
-      
+
 
       {% for per in object_list %}
 
@@ -67,40 +67,40 @@
           <div class="modal-body">
             <form action="../updated/{{ per.id }}" method="POST">
               {% csrf_token %}
-      
+
               <label for="issn" class="form-label">ISSN</label>
               <input class="form-control" type="text" id="issn" name="issn" value="{{ per.issn }}" placeholder="{{ per.issn }}" aria-label="default input example" readonly>
-      
+
               <label for="mms_id" class="form-label">MMS ID</label>
               <input class="form-control" type="number" id="email" name="mms_id" value="{{ per.mms_id }}" placeholder="{{ per.mms_id }}" aria-label="default input example" readonly>
-      
+
               <label for="library_name" class="form-label">Library </label>
               <input class="form-control" type="text" id="library_name" name="library_name" value="{{ per.library_name }}" placeholder="{{ per.library_name }}" aria-label="default input example" readonly>
-      
+
               <label for="new_library" class="form-label text-danger">New Library</label>
               <input class="form-control text-danger" type="text" id="new_library" name="new_library" value="{{ per.new_library }}" placeholder="{{ per.new_library }}" aria-label="default input example">
 
               <label for="location_name" class="form-label">Location</label>
               <input class="form-control" type="text" id="location_name" name="location_name" value="{{ per.location_name }}" placeholder="{{ per.location_name }}" aria-label="default input example" readonly>
-      
+
               <label for="new_location" class="form-label text-danger">New Location</label>
               <input class="form-control text-danger" type="text" id="new_location" name="new_location" value="{{ per.new_location }}" placeholder="{{ per.new_location }}" aria-label="default input example">
 
               <label for="classmark" class="form-label">Classmark</label>
               <input class="form-control" type="text" id="classmark" name="classmark" value="{{ per.classmark }}" placeholder="{{ per.classmark }}" aria-label="default input example" readonly>
-      
+
               <label for="new_per_number" class="form-label text-danger">New Per Number</label>
               <input class="form-control text-danger" type="text" id="new_per_number" name="new_per_number" value="{{ per.new_per_number }}" placeholder="{{ per.new_per_number }}" aria-label="default input example">
 
               <label for="holdings_and_wants" class="form-label">Holdings and Wants</label>
               <textarea class="form-control " type="text" id="holdings_and_wants" name="holdings_and_wants" value="{{ per.holdings_and_wants }}" placeholder="{{ per.holdings_and_wants }}" aria-label="default input example" readonly>{{ per.holdings_and_wants }}</textarea>
-      
+
               <label for="new_holdings" class="form-label text-danger">New Holdings</label>
               <textarea class="form-control text-danger" type="textarea" id="new_holdings" name="new_holdings" value="{{ per.new_holdings }}" placeholder="{{ per.new_holdings }}" aria-label="default input example">{{ per.new_holdings }}</textarea>
 
               <label for="new_wants_and_notes" class="form-label text-danger">New Wants and Notes</label>
               <textarea class="form-control text-danger" type="textarea" id="new_wants_and_notes" name="new_wants_and_notes" value="{{ per.new_wants_and_notes }}" placeholder="{{ per.new_wants_and_notes }}" aria-label="default input example">{{ per.new_wants_and_notes }}</textarea>
-              
+
               <div class="input-group">
                 <button class="input-group-append btn" type="button" id="labeled_on_shelf_btn" name="labeled_on_shelf_btn">
                 <input type="hidden" id="labeled_on_shelf" value="{{ per.labeled_on_shelf }}" name="labeled_on_shelf">
@@ -126,7 +126,7 @@
               </div>
 
               <input class="hidden" type="hidden" value="{{ per.id }}" name="id"></input>
-      
+
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Update</button>
@@ -136,7 +136,7 @@
       </div>
       </div>
 
-      
+
           <!-- View Modal -->
           <div class="modal fade" id="viewModal-{{ per.id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -146,40 +146,40 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-            
+
                     <label for="issn" class="form-label">ISSN</label>
                     <input class="form-control" type="text" id="issn" name="issn" value="{{ per.issn }}" placeholder="{{ per.issn }}" aria-label="default input example" readonly>
-            
+
                     <label for="mms_id" class="form-label">MMS ID</label>
                     <input class="form-control" type="number" id="email" name="mms_id" value="{{ per.mms_id }}" placeholder="{{ per.mms_id }}" aria-label="default input example" readonly>
-            
+
                     <label for="library_name" class="form-label">Library </label>
                     <input class="form-control" type="text" id="library_name" name="library_name" value="{{ per.library_name }}" placeholder="{{ per.library_name }}" aria-label="default input example" readonly>
-            
+
                     <label for="new_library" class="form-label text-danger">New Library</label>
                     <input class="form-control text-danger" type="text" id="new_library" name="new_library" value="{{ per.new_library }}" placeholder="{{ per.new_library }}" aria-label="default input example" readonly>
-      
+
                     <label for="location_name" class="form-label">Location</label>
                     <input class="form-control" type="text" id="location_name" name="location_name" value="{{ per.location_name }}" placeholder="{{ per.location_name }}" aria-label="default input example" readonly>
-            
+
                     <label for="new_location" class="form-label text-danger">New Location</label>
                     <input class="form-control text-danger" type="text" id="new_location" name="new_location" value="{{ per.new_location }}" placeholder="{{ per.new_location }}" aria-label="default input example" readonly>
-      
+
                     <label for="classmark" class="form-label">Classmark</label>
                     <input class="form-control" type="text" id="classmark" name="classmark" value="{{ per.classmark }}" placeholder="{{ per.classmark }}" aria-label="default input example" readonly>
-            
+
                     <label for="new_per_number" class="form-label text-danger">New Per Number</label>
                     <input class="form-control text-danger" type="text" id="new_per_number" name="new_per_number" value="{{ per.new_per_number }}" placeholder="{{ per.new_per_number }}" aria-label="default input example" readonly>
-      
+
                     <label for="holdings_and_wants" class="form-label">Holdings and Wants</label>
                     <textarea class="form-control " type="text" id="holdings_and_wants" name="holdings_and_wants" value="{{ per.holdings_and_wants }}" placeholder="{{ per.holdings_and_wants }}" aria-label="default input example" readonly>{{ per.holdings_and_wants }}</textarea>
-            
+
                     <label for="new_holdings" class="form-label text-danger">New Holdings</label>
                     <textarea class="form-control text-danger" type="textarea" id="new_holdings" name="new_holdings" value="{{ per.new_holdings }}" placeholder="{{ per.new_holdings }}" aria-label="default input example" readonly>{{ per.new_holdings }}</textarea>
-      
+
                     <label for="new_wants_and_notes" class="form-label text-danger">New Wants and Notes</label>
                     <textarea class="form-control text-danger" type="textarea" id="new_wants_and_notes" name="new_wants_and_notes" value="{{ per.new_wants_and_notes }}" placeholder="{{ per.new_wants_and_notes }}" aria-label="default input example" readonly>{{ per.new_wants_and_notes }}</textarea>
-                    
+
                     <div class="input-group">
                       <button class="input-group-append btn" type="button" id="labeled_on_shelf_btn" name="labeled_on_shelf_btn">
                       <input type="hidden" id="labeled_on_shelf" value="{{ per.labeled_on_shelf }}" name="labeled_on_shelf" readonly>
@@ -191,7 +191,7 @@
                       </button>
                         <label class="label" for="labeled_on_shelf">Labelled On Shelf</label>
                     </div>
-      
+
                     <div class="input-group">
                       <button class="input-group-prepend btn" type="button" id="amended_on_alma_btn" name="amended_on_alma_btn">
                         <input type="hidden" id="amended_on_alma" value="{{ per.amended_on_alma }}" name="amended_on_alma" readonly>
@@ -203,11 +203,8 @@
                       </button>
                         <label class="label" for="amended_on_alma">Changed on Alma</label>
                     </div>
-      
-                    <input class="hidden" type="hidden" value="{{ per.id }}" name="id"></input>
-            
                 </div>
-             
+
               </div>
             </div>
             </div>
