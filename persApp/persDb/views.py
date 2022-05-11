@@ -18,19 +18,20 @@ class UpdatedView(DetailView, UpdateView):
         context = super().get_context_data(**kwargs)
         context['per'] = PeriodicalsOctavo.objects.all()
         return context
-    
+
 class SearchResultsView(ListView):
     model = PeriodicalsOctavo
     template_name = 'search_results.html'
-   
+
     def get_queryset(self):
         query = self.request.GET.get('q')
         object_list = PeriodicalsOctavo.objects.filter(
-            Q(title__icontains=query) | Q(mms_id__icontains=query) | 
-            Q(issn__icontains=query) | Q(classmark__icontains=query)
+            Q(title__icontains=query) | Q(mms_id__icontains=query) |
+            Q(issn__icontains=query) | Q(classmark__icontains=query) |
+            Q(new_per_number__icontains=query)
         )
         return object_list
-    
+
 # update view for details
 def update_view(request, id):
 
@@ -62,7 +63,7 @@ def update_view(request, id):
 class ToUpdateResultsView(ListView):
     model = PeriodicalsOctavo
     template_name = 'alma_updates.html'
-   
+
     def get_queryset(self):
         # query = self.request.GET.get('q')
         object_list = PeriodicalsOctavo.objects.filter(
@@ -74,7 +75,7 @@ class ToUpdateResultsView(ListView):
 class RetentionResultsView(ListView):
     model = PeriodicalsUKRRStatus
     template_name = 'retention_results.html'
-   
+
     def get_queryset(self):
         query = self.request.GET.get('q')
         object_list = PeriodicalsUKRRStatus.objects.filter(
