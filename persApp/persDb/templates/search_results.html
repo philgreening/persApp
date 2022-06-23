@@ -102,24 +102,24 @@
               <textarea class="form-control text-danger" type="textarea" id="new_wants_and_notes" name="new_wants_and_notes" value="{{ per.new_wants_and_notes }}" placeholder="{{ per.new_wants_and_notes }}" aria-label="default input example">{{ per.new_wants_and_notes }}</textarea>
 
               <div class="input-group">
-                <button class="input-group-append btn labOnShelf" type="button" id="labeled_on_shelf_btn_edit{{ forloop.counter0 }}" name="labeled_on_shelf_btn">
+                <button onclick="tickOnShelf(this)" class="input-group-append btn labOnShelf" type="button" id="labeled_on_shelf_btn_edit{{ forloop.counter0 }}" name="labeled_on_shelf_btn">
                 <input type="hidden" id="labeled_on_shelf_edit{{ forloop.counter0 }}" value="{{ per.labeled_on_shelf }}" name="labeled_on_shelf">
                   {% if per.labeled_on_shelf %}
-                  <i onclick="tick(this)" class="fa-solid fa-circle-check" ></i>
+                  <i class="fa-solid fa-circle-check" id="tick1" ></i>
                   {% else %}
-                  <i onclick="tick(this)" class="fa-solid fa-circle-xmark" ></i>
+                  <i class="fa-solid fa-circle-xmark" id="tick1" ></i>
                   {% endif %}
                 </button>
                   <label class="label" for="labeled_on_shelf">Labelled On Shelf</label>
               </div>
 
               <div class="input-group">
-                <button class="input-group-prepend btn" type="button" id="amended_on_alma_btn_edit{{ forloop.counter0 }}" name="amended_on_alma_btn">
+                <button onclick="tickOnAlma(this)" class="input-group-prepend btn" type="button" id="amended_on_alma_btn_edit{{ forloop.counter0 }}" name="amended_on_alma_btn">
                   <input type="hidden" id="amended_on_alma_edit{{ forloop.counter0 }}" value="{{ per.amended_on_alma }}" name="amended_on_alma">
                   {% if per.amended_on_alma %}
-                  <i onclick="tick(this)" class="fa-solid fa-circle-check"  id="tick2"></i>
+                  <i class="fa-solid fa-circle-check"  id="tick2"></i>
                   {% else %}
-                  <i onclick="tick(this)" class="fa-solid fa-circle-xmark" id="tick2"></i>
+                  <i class="fa-solid fa-circle-xmark" id="tick2"></i>
                   {% endif %}
                 </button>
                   <label class="label" for="amended_on_alma">Changed on Alma</label>
@@ -184,9 +184,9 @@
                       <button class="input-group-append btn" type="button" id="labeled_on_shelf_btn" name="labeled_on_shelf_btn">
                       <input type="hidden" id="labeled_on_shelf" value="{{ per.labeled_on_shelf }}" name="labeled_on_shelf" readonly>
                         {% if per.labeled_on_shelf %}
-                        <i class="fa-solid fa-circle-check"></i>
+                        <i class="fa-solid fa-circle-check" id="tick1"></i>
                         {% else %}
-                        <i class="fa-solid fa-circle-xmark"></i>
+                        <i class="fa-solid fa-circle-xmark" id="tick1"></i>
                         {% endif %}
                       </button>
                         <label class="label" for="labeled_on_shelf">Labelled On Shelf</label>
@@ -262,11 +262,18 @@
         })
     }
 
-
-    function tick(x) {
-        x.classList.toggle("fa-circle-xmark");
-        x.classList.toggle("fa-circle-check");
+    function tickOnShelf(e){
+      x = e.childNodes[3];
+      x.classList.toggle("fa-circle-xmark");
+      x.classList.toggle("fa-circle-check");
     }
+
+    function tickOnAlma(e){
+      x = e.childNodes[3];
+      x.classList.toggle("fa-circle-xmark");
+      x.classList.toggle("fa-circle-check");
+    }
+
 
     </script>
 
