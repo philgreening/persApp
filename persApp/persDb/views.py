@@ -1,8 +1,9 @@
 from pyexpat import model
 from django.shortcuts import redirect, render, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import TemplateView, ListView, DetailView, UpdateView
 from django.db.models import Q
+import csv
 
 from .models import *
 
@@ -82,3 +83,47 @@ class RetentionResultsView(ListView):
             Q(title__icontains=query) | Q(issn__icontains=query)
         )
         return object_list
+
+def export_to_csv(request):
+    pers = PeriodicalsOctavo.objects.all()
+    response = HttpResponse(
+        content_type='text/csv',
+        headers={'Content-Disposition': 'attachment; filename="persList_export.csv"'},
+    )
+    writer = csv.writer(response)
+    writer.writerow([
+                    'mms_id',
+                    'issn',
+                    'library_name',
+                    'new_library',
+                    'location_name',
+                    'new_location',
+                    'classmark',
+                    'new_per_number',
+                    'title',
+                    'holdings_and_wants',
+                    'new_holdings',
+                    'new_wants_and_notes',
+                    'labeled_on_shelf',
+                    'amended_on_alma'
+                    ])
+    pers_fields = pers.values_list(
+                    'mms_id',
+                    'issn',
+                    'library_name',
+                    'new_library',
+                    'location_name',
+                    'new_location',
+                    'classmark',
+                    'new_per_number',
+                    'title',
+                    'holdings_and_wants',
+                    'new_holdings',
+                    'new_wants_and_notes',
+                    'labeled_on_shelf',
+                    'amended_on_alma'
+                    )
+    for pers in pers_fields:
+        writer.writerow(pers)
+
+    return response
